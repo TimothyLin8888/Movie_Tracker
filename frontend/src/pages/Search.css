@@ -1,0 +1,218 @@
+/* Whole Page */
+
+.search-page {
+    min-height: 100vh;
+    background-color: #121212;
+    color: white;
+}
+
+/* Main Content */
+
+.search-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+}
+
+h1 {
+    color: white;
+}
+
+.search-container h1 {
+    margin-bottom: 25px;
+    font-size: 2.5rem;
+}
+
+/* Movie / TV Toggle */
+
+.media-toggle {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.media-toggle button {
+    padding: 10px 22px;
+
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background: #2b2b2b;
+    color: white;
+
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+.media-toggle button:hover {
+    background: #444;
+}
+
+.media-toggle button.active {
+    background: #0d6efd;
+}
+
+/* Search */
+
+.search-form {
+    display: flex;
+    gap: 15px;
+
+    margin-bottom: 40px;
+}
+
+.search-form input {
+    flex: 1;
+
+    padding: 14px;
+
+    border-radius: 10px;
+    border: none;
+
+    font-size: 16px;
+}
+
+.search-form button {
+    padding: 14px 28px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #0d6efd;
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.search-form button:hover {
+    background: #0059d6;
+}
+
+/* Results */
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card */
+
+.search-card {
+
+    display: flex;
+
+    gap: 25px;
+
+    background: #1f1f1f;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    transition: 0.25s;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+
+}
+
+.search-card:hover {
+
+    transform: translateY(-4px);
+
+    background: #292929;
+
+}
+
+/* Poster */
+
+.search-card img {
+
+    width: 140px;
+
+    border-radius: 10px;
+
+    object-fit: cover;
+
+}
+
+/* Information */
+
+.movie-info {
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.movie-info h2 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+.movie-info p {
+
+    color: #cfcfcf;
+
+    margin-top: 12px;
+
+    line-height: 1.5;
+
+}
+
+/* Buttons */
+
+.movie-buttons {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: auto;
+
+}
+
+.movie-buttons button {
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background: #0d6efd;
+
+    color: white;
+
+    transition: .2s;
+
+}
+
+.movie-buttons button:hover {
+
+    background: #0059d6;
+
+}
+
+/* Error */
+
+.error {
+
+    color: #ff5555;
+
+    margin-bottom: 20px;
+
+}

@@ -1,0 +1,73 @@
+.sl-nav {
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  height: 56px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+ 
+.sl-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 12px;
+}
+ 
+.sl-logo-icon {
+  font-size: 18px;
+  color: white;
+  line-height: 1;
+}
+ 
+.sl-logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+ 
+.sl-nav-links {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+  flex: 1;
+}
+ 
+.sl-nav-link {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius);
+  color: white;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 6px 16px;
+  transition: background 0.15s, border-color 0.15s;
+}
+ 
+.sl-nav-link:hover,
+.sl-nav-link.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+ 
+.sl-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: auto;
+  flex-shrink: 0;
+}
