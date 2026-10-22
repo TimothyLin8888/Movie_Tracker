@@ -71,3 +71,91 @@
   margin-left: auto;
   flex-shrink: 0;
 }
+
+.sl-profile {
+  position: relative;
+  margin-left: auto;
+}
+
+.sl-avatar {
+  cursor: pointer;
+  font-family: var(--font);
+}
+
+.sl-avatar:hover,
+.sl-avatar:focus-visible {
+  background: rgba(255, 255, 255, 0.28);
+  outline: none;
+}
+
+.sl-profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  width: 220px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.sl-profile-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sl-profile-summary strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.sl-profile-summary span {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sl-profile-menu a,
+.sl-profile-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.sl-profile-menu a:hover,
+.sl-profile-menu button:hover,
+.sl-profile-menu a:focus-visible,
+.sl-profile-menu button:focus-visible {
+  background: var(--surface-2);
+  outline: none;
+}
+
+@media (max-width: 620px) {
+  .sl-nav {
+    padding: 0 14px;
+  }
+
+  .sl-nav-links {
+    overflow-x: auto;
+  }
+
+  .sl-nav-link {
+    padding: 6px 10px;
+  }
+}

@@ -1,0 +1,78 @@
+.sp-root {
+  --sp-surface: #1c1c1c;
+  --sp-border: #2e2e2e;
+  --sp-text: #f0f0f0;
+  --sp-muted: #8a8a8a;
+  --sp-accent: #d65a38;
+  display: grid;
+  gap: 20px;
+  color: var(--sp-text);
+}
+
+.sp-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sp-stat {
+  padding: 18px;
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  background: var(--sp-surface);
+}
+
+.sp-stat-label { margin: 0; color: var(--sp-muted); font-size: 12px; letter-spacing: 0.6px; text-transform: uppercase; }
+.sp-stat-value { display: block; margin-top: 8px; color: var(--sp-text); font-size: 30px; line-height: 1.1; }
+.sp-stat-detail { margin: 6px 0 0; color: var(--sp-muted); font-size: 12px; }
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sp-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  background: var(--sp-surface);
+}
+
+.sp-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.sp-card h2 { margin: 0; color: var(--sp-text); font-size: 17px; line-height: 1.25; text-align: left; }
+.sp-kicker { margin: 0 0 6px; color: var(--sp-accent); font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-align: left; }
+.sp-note { color: var(--sp-muted); font-size: 12px; white-space: nowrap; }
+.sp-chart { position: relative; height: 230px; }
+
+.sp-ranking { margin: 0; padding: 0; list-style: none; }
+.sp-ranking li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--sp-border);
+  color: var(--sp-text);
+  font-size: 14px;
+  text-align: left;
+}
+.sp-ranking li:first-child { border-top: 0; }
+.sp-ranking strong { color: var(--sp-accent); }
+.sp-footnote { margin: 12px 0 0; color: var(--sp-muted); font-size: 12px; text-align: left; }
+
+.sp-empty {
+  padding: 40px 24px;
+  border: 1px dashed var(--sp-border, #2e2e2e);
+  border-radius: 8px;
+  color: #8a8a8a;
+  text-align: center;
+}
+.sp-empty h2 { margin: 6px 0; color: #f0f0f0; }
+.sp-empty .sp-kicker { color: #d65a38; text-align: center; }
+
+@media (max-width: 720px) {
+  .sp-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sp-grid { grid-template-columns: minmax(0, 1fr); }
+  .sp-stat-value { font-size: 26px; }
+}

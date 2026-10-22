@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { API_URL } from "../api";
 
-const API_URL = "http://localhost:8000";
 
 export default function Login() {
   const navigate = useNavigate();

@@ -1,0 +1,112 @@
+.pp-page {
+  --pp-bg: #111111;
+  --pp-surface: #1c1c1c;
+  --pp-surface-2: #242424;
+  --pp-border: #2e2e2e;
+  --pp-text: #f0f0f0;
+  --pp-muted: #8a8a8a;
+  --pp-accent: #d65a38;
+  min-height: 100vh;
+  padding: 32px 16px 56px;
+  background: var(--pp-bg);
+  color: var(--pp-text);
+  text-align: left;
+}
+
+.pp-container { width: min(100%, 860px); margin: 0 auto; }
+.pp-message { color: var(--pp-muted); text-align: center; padding-top: 80px; }
+
+.pp-header { display: flex; align-items: center; gap: 18px; padding-bottom: 24px; border-bottom: 1px solid var(--pp-border); }
+.pp-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--pp-accent);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+}
+.pp-header h1 { margin: 0; color: var(--pp-text); font-size: 28px; line-height: 1.15; }
+.pp-bio { margin: 6px 0 0; color: var(--pp-text); font-size: 15px; line-height: 1.45; overflow-wrap: anywhere; }
+.pp-since { margin: 6px 0 0; color: var(--pp-muted); font-size: 13px; }
+
+.pp-section { margin-top: 36px; }
+.pp-kicker { margin: 0 0 6px; color: var(--pp-accent); font-size: 11px; font-weight: 600; letter-spacing: 1.2px; }
+.pp-section h2 { margin: 0 0 16px; color: var(--pp-text); font-size: 22px; line-height: 1.2; text-align: left; }
+.pp-muted { margin: 0; color: var(--pp-muted); }
+
+.pp-day { margin-bottom: 16px; }
+.pp-day h3 { margin: 0 0 8px; color: var(--pp-muted); font-size: 13px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; }
+.pp-day ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pp-schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border: 1px solid var(--pp-border);
+  border-radius: 8px;
+  background: var(--pp-surface);
+}
+.pp-schedule-item img, .pp-schedule-empty { flex-shrink: 0; width: 56px; height: 84px; border-radius: 4px; object-fit: cover; background: var(--pp-surface-2); }
+.pp-schedule-empty { display: grid; place-items: center; color: var(--pp-muted); font-size: 10px; letter-spacing: 1px; }
+.pp-schedule-item strong { color: var(--pp-text); font-size: 17px; }
+.pp-schedule-item span { color: var(--pp-muted); }
+.pp-schedule-item p { margin: 4px 0 0; color: var(--pp-muted); font-size: 14px; overflow-wrap: anywhere; }
+
+.pp-posters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 14px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pp-poster { position: relative; aspect-ratio: 2 / 3; overflow: hidden; border-radius: 6px; background: var(--pp-surface-2); }
+.pp-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pp-poster-empty { display: grid; place-items: center; height: 100%; padding: 8px; color: var(--pp-muted); font-size: 12px; text-align: center; }
+.pp-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  min-width: 26px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.88);
+  color: var(--pp-text);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.pp-poster-title { margin: 6px 0 0; color: var(--pp-text); font-size: 12px; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+.pp-lists { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pp-lists li { display: flex; align-items: baseline; gap: 10px; padding: 10px 14px; border: 1px solid var(--pp-border); border-radius: 999px; background: var(--pp-surface); font-size: 14px; }
+.pp-lists span { color: var(--pp-muted); font-size: 12px; }
+
+.pp-footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--pp-border); text-align: center; }
+.pp-cta {
+  display: inline-block;
+  padding: 11px 20px;
+  border-radius: 6px;
+  background: var(--pp-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.pp-cta:hover { filter: brightness(1.1); }
+
+.pp-missing { padding-top: 80px; text-align: center; }
+.pp-missing h1 { margin: 0 0 10px; color: var(--pp-text); font-size: 26px; }
+.pp-missing p { color: var(--pp-muted); }
+.pp-missing .pp-cta { margin-top: 12px; }
+
+@media (max-width: 520px) {
+  .pp-page { padding: 24px 14px 44px; }
+  .pp-avatar { width: 60px; height: 60px; font-size: 22px; }
+  .pp-header h1 { font-size: 24px; }
+  .pp-section h2 { font-size: 20px; }
+}

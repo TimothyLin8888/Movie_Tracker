@@ -34,6 +34,11 @@ class LoginRequest(BaseModel):
 	password: str
 
 
+class ProfileUpdateRequest(BaseModel):
+	username: str
+	email: str
+
+
 def create_access_token(user_id: int) -> str:
 	expires_at = datetime.now(timezone.utc) + timedelta(
 		minutes=ACCESS_TOKEN_EXPIRE_MINUTES
@@ -114,4 +119,30 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
 @router.get("/me")
 def get_me(user: User = Depends(get_current_user)):
+	return {"id": user.id, "username": user.username, "email": user.email}
+
+
+@router.patch("/me")
+def update_me(
+	request: ProfileUpdateRequest,
+	user: User = Depends(get_current_user),
+	db: Session = Depends(get_db),
+):
+	username = request.username.strip()
+	email = request.email.strip().lower()
+
+	if len(username) < 3:
+		raise HTTPException(status_code=400, detail="Username must be at least 3 characters")
+	if "@" not in email:
+		raise HTTPException(status_code=400, detail="Enter a valid email address")
+	duplicate = db.query(User).filter(
+		((User.username == username) | (User.email == email)) & (User.id != user.id)
+	).first()
+	if duplicate:
+		raise HTTPException(status_code=409, detail="Username or email is already in use")
+
+	user.username = username
+	user.email = email
+	db.commit()
+	db.refresh(user)
 	return {"id": user.id, "username": user.username, "email": user.email}

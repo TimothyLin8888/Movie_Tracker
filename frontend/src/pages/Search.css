@@ -216,3 +216,111 @@ h1 {
     margin-bottom: 20px;
 
 }
+
+.success {
+    color: #8fd3a8;
+    margin-bottom: 20px;
+}
+
+.search-kicker {
+    color: #f0a060;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 0 0 8px;
+}
+
+.add-panel {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 2;
+    width: min(420px, calc(100vw - 48px));
+    padding: 24px;
+    border: 1px solid #555;
+    border-radius: 12px;
+    background: #242424;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
+}
+
+.add-panel-header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.add-panel h2 {
+    margin: 0;
+    color: white;
+}
+
+.close-button {
+    padding: 0 6px;
+    border: 0;
+    background: transparent;
+    color: #bbb;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.add-panel > label,
+.add-panel legend {
+    display: block;
+    margin-bottom: 8px;
+    color: #eee;
+    font-weight: 600;
+}
+
+.add-panel > label span {
+    color: #999;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.add-panel > input,
+.new-list-form input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #555;
+    border-radius: 7px;
+    background: #171717;
+    color: white;
+    font: inherit;
+}
+
+.add-panel fieldset {
+    margin: 20px 0;
+    padding: 0;
+    border: 0;
+}
+
+.list-option {
+    display: block;
+    margin: 10px 0;
+    color: #ddd;
+}
+
+.new-list-form {
+    display: flex;
+    gap: 8px;
+}
+
+.new-list-form button,
+.save-movie-button {
+    flex: 0 0 auto;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 7px;
+    background: #555;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+}
+
+.save-movie-button {
+    width: 100%;
+    margin-top: 18px;
+    background: #c0392b;
+}

@@ -1,54 +1,67 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 // Navbar is handled externally via Navbar.jsx
 import "./Dashboard.css";
- 
-const movies = [
-  { title: "The Godfather", genres: ["Crime", "Drama"], year: 1972, rating: 9.2, color: "#2a0a0a" },
-  { title: "Blade Runner 2049", genres: ["Sci-fi"], year: 2017, rating: 8.0, color: "#0d1a2e" },
-  { title: "Interstellar", genres: ["Sci-fi", "Drama"], year: 2014, rating: 8.7, color: "#0a1a0f" },
-];
- 
-const chatHistory = [
-  {
-    role: "user",
-    text: "I loved Parasite and gave Spirited Away a 9 — what should I watch next?",
-  },
-  {
-    role: "bot",
-    text: (
-      <>
-        Based on your ratings, I'd suggest <strong>Oldboy</strong> for the same layered tension as
-        Parasite, or <strong>Princess Mononoke</strong> if you want more Miyazaki.
-      </>
-    ),
-  },
-];
- 
+import { API_URL } from "../api";
+
+
 export default function Dashboard() {
-  const [message, setMessage] = useState("");
-  const [chat, setChat] = useState(chatHistory);
- 
-  const handleSend = () => {
-    if (!message.trim()) return;
-    setChat((prev) => [...prev, { role: "user", text: message }]);
-    setMessage("");
-  };
- 
+  const [watches, setWatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const user = JSON.parse(localStorage.getItem("movie_tracker_user") || "null");
+
+  useEffect(() => {
+    async function fetchWatches() {
+      try {
+        const token = localStorage.getItem("movie_tracker_token");
+        const response = await fetch(`${API_URL}/analytics`, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
+        if (!response.ok) throw new Error(response.status === 401 ? "Sign in to see your dashboard." : "Unable to load your dashboard.");
+        setWatches(await response.json());
+      } catch (fetchError) {
+        setError(fetchError.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchWatches();
+  }, []);
+
+  const summary = useMemo(() => {
+    const rated = watches.filter((watch) => Number.isFinite(watch.personal_rating));
+    const genres = {};
+    watches.forEach((watch) => {
+      (watch.genres || "").split(",").map((genre) => genre.trim()).filter(Boolean).forEach((genre) => {
+        genres[genre] = (genres[genre] || 0) + 1;
+      });
+    });
+    const topGenre = Object.entries(genres).sort(([, countA], [, countB]) => countB - countA)[0]?.[0] || "--";
+    return {
+      averageRating: rated.length ? (rated.reduce((sum, watch) => sum + watch.personal_rating, 0) / rated.length).toFixed(1) : "--",
+      favoriteCount: watches.filter((watch) => watch.favorite).length,
+      topGenre,
+    };
+  }, [watches]);
+
+  const recentWatches = watches.slice(-3).reverse();
+
   return (
     <div className="sl-app">
       <main className="sl-main">
         <header className="sl-header">
           <p className="sl-eyebrow">WELCOME BACK</p>
-          <h1 className="sl-title">Your movie dashboard</h1>
-          <p className="sl-subtitle">Track, rate, and discover films you'll love</p>
+          <h1 className="sl-title">{user?.username ? `${user.username}'s movie dashboard` : "Your movie dashboard"}</h1>
+          <p className="sl-subtitle">A snapshot of your watch history and ratings</p>
         </header>
- 
+
         <section className="sl-stats">
           {[
-            { value: "142", label: "Movies watched", accent: false },
-            { value: "8.2", label: "Avg rating", accent: true },
-            { value: "12", label: "Watchlist", accent: false },
-            { value: "Thriller", label: "Top genre", accent: false },
+            { value: watches.length, label: "Movies watched", accent: false },
+            { value: summary.averageRating, label: "Avg rating", accent: true },
+            { value: summary.favoriteCount, label: "Favorites", accent: false },
+            { value: summary.topGenre, label: "Top genre", accent: false },
           ].map(({ value, label, accent }) => (
             <div className="sl-stat-card" key={label}>
               <span className={`sl-stat-value${accent ? " sl-stat-accent" : ""}`}>{value}</span>
@@ -56,56 +69,29 @@ export default function Dashboard() {
             </div>
           ))}
         </section>
- 
-        <section className="sl-section">
+        {loading && <p className="sl-message">Gathering your watch history...</p>}
+        {error && <p className="sl-message sl-error" role="alert">{error}</p>}
+        {!loading && !error && <section className="sl-section">
           <div className="sl-section-header">
-            <h2 className="sl-section-title">Recommended for you</h2>
-            <button className="sl-see-all">See all</button>
+            <h2 className="sl-section-title">Recently watched</h2>
           </div>
-          <div className="sl-movies-grid">
-            {movies.map((m) => (
-              <div className="sl-movie-card" key={m.title}>
-                <div className="sl-movie-poster" style={{ backgroundColor: m.color }}>
-                  <span className="sl-poster-icon" aria-hidden="true">☐</span>
+          {recentWatches.length ? <div className="sl-movies-grid">
+            {recentWatches.map((movie) => (
+              <article className="sl-movie-card" key={`${movie.id}-${movie.watch_date}`}>
+                <div className="sl-movie-poster">
+                  <span className="sl-poster-icon" aria-hidden="true">FILM</span>
                 </div>
                 <div className="sl-movie-info">
-                  <p className="sl-movie-title">{m.title}</p>
+                  <p className="sl-movie-title">{movie.title}</p>
                   <p className="sl-movie-meta">
-                    {m.genres.join(" · ")} · {m.year}
+                    {movie.genres || "Genre unavailable"} · {movie.watch_date || "Date unavailable"}
                   </p>
-                  <p className="sl-movie-rating">
-                    <span className="sl-rating-icon" aria-hidden="true">☰</span> {m.rating.toFixed(1)}
-                  </p>
+                  {Number.isFinite(movie.personal_rating) && <p className="sl-movie-rating">Rated {movie.personal_rating}/10</p>}
                 </div>
-              </div>
+              </article>
             ))}
-          </div>
-        </section>
-
-        <section className="sl-section sl-chat-section">
-          <div className="sl-section-header">
-            <h2 className="sl-section-title">AI chatbot</h2>
-            <button className="sl-see-all">Open full chat</button>
-          </div>
-          <div className="sl-chat-box">
-            <div className="sl-chat-messages">
-              {chat.map((msg, i) => (
-                <div key={i} className={`sl-chat-bubble sl-chat-${msg.role}`}>
-                  {msg.text}
-                </div>
-              ))}
-            </div>
-            <div className="sl-chat-input-row">
-              <input
-                className="sl-chat-input"
-                placeholder="Ask for a recommendation..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              />
-            </div>
-          </div>
-        </section>
+          </div> : <div className="sl-empty-state"><h2>No watched movies yet</h2><p>Add ratings to start building your dashboard, or <Link to="/import">import your Letterboxd or IMDb history</Link>.</p></div>}
+        </section>}
       </main>
     </div>
   );
